@@ -1,0 +1,113 @@
+/* Website header styles*/
+.body{
+    margin: 0px;
+}
+.container{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.header{
+    background: black;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 38px;
+}
+.left-side{
+    display: flex;
+    justify-content: left;
+    margin-top: 20px;
+    margin-left: 25px;
+}
+.right-side{
+    display: flex;
+    margin-right: 20px;
+    color: white;
+}
+.header > .left-side > div{
+    margin-right: 20px;
+    font-size: 0.9em;
+    text-transform: UPPERCASE;
+}
+.navigations{
+    height: 10px;
+}
+.navigations a{
+    color: white;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+.navigations a:hover{
+    color: blue;
+}
+/* Header styles ends here*/
+
+.portfolio-wrapper{
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+}
+.portfolio-item-wrapper{
+    position: relative;
+}
+.portfolio-img-bg{
+    height: 200px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(100%);
+}
+.portfolio-img-bg:hover{
+    filter: brightness(10%);
+}
+.text-img-wrapper{
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+/* darkening animation when hovered on*/
+.text-img-wrapper .subtitle{
+    transition: 1s;
+    font-size: 12px;
+    font-weight: 550;
+    color: transparent;
+}
+.text-img-wrapper:hover .subtitle{
+    font-weight: 550;
+    font-size: 15px;
+    color: white;
+}
+.text-img-wrapper .subtitle a{
+    transition: 1s;
+    font-size: 12px;
+    font-weight: 550;
+    color: transparent;
+}
+.text-img-wrapper:hover .subtitle a{
+    font-weight: 550;
+    font-size: 15px;
+    color: white;
+}
+
+.logo-wrapper img{
+    width: 25%;
+    height: 100px;
+}
+
+.img-darken{
+    transition: 1s;
+    filter: brightness(10%);
+}
+
+.video-recorder{
+    display: flex;
+    justify-content: center;
+}

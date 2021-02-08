@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial_scale=1">
+        <link rel="stylesheet" href="home_styles.css">
+        <title>AFib Detection App</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="left-side">
+                    <div class="navigations">
+                        <a href="index.html">Home</a>
+                    </div>
+                    <div class="navigations">
+                        <a href="about.html", target="_blank">About</a>
+                    </div>
+                </div>
+
+                <div class="right-side">
+                    <div class="websiteName">
+                        <h1>AFib Detection App</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrapper">
+                <div class="portfolio-wrapper">
+                    <div class="portfolio-item-wrapper">
+                        <div class="portfolio-img-bg" style="background-image:url(phone-camera.jpg)"></div>
+                        <div class="text-img-wrapper">
+                            <div class="logo-wrapper">
+                                <img src="camera-logo.png" alt="">
+                            </div>
+                            <div class="subtitle">
+                                <a href="recorder.html" target="_blank">Start taking your pulse!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item-wrapper">
+                        <div class="portfolio-img-bg" style="background-image:url(matlab-bg.png)"></div>
+                        <div class="text-img-wrapper">
+                            <div class="logo-wrapper">
+                                <img src="ecg-signal.png" alt="">
+                            </div>
+                            <div class="subtitle">
+                                <a href="documentation.html" target="_blank">How do we process your pulse?</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    const portfolioItems = document.getElementsByClassName(".portfolio-img-bg");
+                    portfolioItems.foreach(portfolioItem => {
+                        portfolioItem.addEventListener('mouseover', () => {
+                            console.log(portfolioItem.childNodes[1].classList);
+                            portfolioItem.childNodes[1].classList.add(".img-darken");
+                        })
+                        portfolioItem.addEventListener('mouseout', () => {
+                            console.log(portfolioItem.childNodes[1].classList);
+                            portfolioItem.childNodes[1].classList.remove(".img-darken");
+                        })
+                    })
+                </script>
+            </div>
+        <!--
+            <div class="search-bar">
+                <p>Try searching for an ailment...</p>
+                <textarea id="searchBar"></textarea>
+                <button id="searchButton">Search</button>
+                <ul id="searchList"></ul> 
+                <script src="search.js"></script>
+            </div>
+            <div class="login-prompt">
+                <p><i>User login here</i></p>
+                <textarea id="loginBar"></textarea>
+                <button id="loginButton">Sign In</button>
+            </div>
+        -->
+        <script src="image_animation.js"></script>
+        </div>
+    </body>
+</html>
