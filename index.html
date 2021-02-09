@@ -49,19 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <script>
-                    const portfolioItems = document.getElementsByClassName(".portfolio-img-bg");
-                    portfolioItems.foreach(portfolioItem => {
-                        portfolioItem.addEventListener('mouseover', () => {
-                            console.log(portfolioItem.childNodes[1].classList);
-                            portfolioItem.childNodes[1].classList.add(".img-darken");
-                        })
-                        portfolioItem.addEventListener('mouseout', () => {
-                            console.log(portfolioItem.childNodes[1].classList);
-                            portfolioItem.childNodes[1].classList.remove(".img-darken");
-                        })
-                    })
-                </script>
+                <script src="image_animation.js"></script>
             </div>
         <!--
             <div class="search-bar">
