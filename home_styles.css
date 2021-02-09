@@ -6,40 +6,41 @@
     display: grid;
     grid-template-columns: 1fr;
 }
-.header{
-    background: black;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding: 38px;
-}
-.left-side{
-    display: flex;
-    justify-content: left;
-    margin-top: 20px;
-    margin-left: 25px;
-}
-.right-side{
-    display: flex;
-    margin-right: 20px;
-    color: white;
-}
-.header > .left-side > div{
-    margin-right: 20px;
-    font-size: 0.9em;
-    text-transform: UPPERCASE;
-}
-.navigations{
-    height: 10px;
-}
-.navigations a{
-    color: white;
-    text-decoration: none;
-    transition: color 0.5s;
-}
-.navigations a:hover{
-    color: blue;
-}
+    .header{
+        background: black;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding: 38px;
+    }
+        .left-side{
+            display: flex;
+            justify-content: left;
+            margin-top: 20px;
+            margin-left: 25px;
+        }
+        .right-side{
+            display: flex;
+            margin-right: 20px;
+            font-size: 1em;
+            color: white;
+        }
+        .header > .left-side > div{
+            margin-right: 20px;
+            font-size: 1em;
+            text-transform: UPPERCASE;
+        }
+        .navigations{
+            height: 10px;
+        }
+        .navigations a{
+            color: white;
+            text-decoration: none;
+            transition: color 0.5s;
+        }
+        .navigations a:hover{
+            color: blue;
+        }
 /* Header styles ends here*/
 
 .portfolio-wrapper{
@@ -96,18 +97,62 @@
     font-size: 15px;
     color: white;
 }
-
 .logo-wrapper img{
     width: 25%;
     height: 100px;
 }
-
 .img-darken{
     transition: 1s;
     filter: brightness(10%);
 }
-
 .video-recorder{
     display: flex;
     justify-content: center;
+}
+
+/* small screen setting */
+@media only screen and (max-width: 550px){
+.body{
+    margin: 0px;
+}
+.container{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+    .header{
+        background: black;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2px;
+        padding: 20px;
+    }
+        .left-side{
+            display: flex;
+            justify-content: left;
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+        .right-side{
+            display: flex;
+            margin-right: 5px;
+            font-size: 0.4em;
+            color: white;
+        }
+        .header > .left-side > div{
+            margin-right: 5px;
+            font-size: 0.4em;
+            text-transform: UPPERCASE;
+        }
+        .navigations{
+            height: 10px;
+        }
+        .navigations a{
+            color: white;
+            text-decoration: none;
+            transition: color 0.5s;
+        }
+        .navigations a:hover{
+            color: blue;
+        }
+/* Header styles ends here*/
 }

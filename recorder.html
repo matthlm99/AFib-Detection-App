@@ -30,23 +30,22 @@
                         <div class="start"><button id="startButton">Start</button></div>
                         <div class="stop"><button id="stopButton">Stop</button></div>
                     </div>
-                    <video id="display" width="300" height="350" autoplay></video>
+                    <video id="display" autoplay></video>
                     <div class="video-overlay">
                         <p id="overlay-message"></p>
                     </div>
                 </div>
                 <div class="right">
-                    <div class="video-download">
-                        <a id="downloadButton" class="button">
-                        Download
-                        </a>
-                    </div>
-                    <video id="recording" width="300" height="350" controls></video>
+                    <video id="recording" controls></video>
                 </div>
                 <div class="messages">
+                    <div class="video-download">
+                        <button>
+                            <a id="downloadButton" class="button">Download</a>
+                        </button>
+                    </div>
                     <p id="log"></p>
                 </div>
-                <canvas id="output-canvas" width="800" height="450" ></canvas>
                 <script>
                     let display = document.getElementById("display");
                     let recording = document.getElementById("recording");
