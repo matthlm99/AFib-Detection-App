@@ -1,0 +1,76 @@
+<html>
+    <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="plotly.min.js"></script>
+    </head>
+    <body>
+    <div class="wrapper">
+        <video id="input-video" src="pulse_video.mp4" autoplay muted></video>
+        <canvas id="output-canvas"></canvas>
+        <div class="navbar"><span>Real-Time Chart with Plotly.js</span></div>
+            <div id="chart"></div>
+        <script>
+            // Video Processing
+            function computeFrame(frame_average) {
+                if (video.paused || video.ended) {
+                return;
+                }
+                ctx_tmp.drawImage(video, 0, 0, video.videoWidth , video.videoHeight );
+                let frame = ctx_tmp.getImageData(0, 0, video.videoWidth , video.videoHeight );
+
+
+                let red_average = 0;
+                for (let i = 0; i < frame.data.length /4; i++) {
+                    red_average += frame.data[i * 4 + 0];
+                }
+                red_average = red_average/ frame.data.length;
+                // debugging code
+                console.log("Red average is :");
+                console.log(red_average);
+
+                frame_average = frame_average.push(red_average);
+            }
+
+            let video,c1,ctx1,c_tmp,ctx_tmp; 
+            video = document.getElementById('input-video');
+
+            c1 = document.getElementById('output-canvas');
+            ctx1 = c1.getContext('2d');
+
+            c_tmp = document.createElement('canvas');
+            c_tmp.setAttribute('width', 800);
+            c_tmp.setAttribute('height', 450);
+            ctx_tmp = c_tmp.getContext('2d');
+
+            let red_frame = []; // initialize red frame array data
+            video.addEventListener('play', function(){
+                while (!video.ended){
+                    computeFrame(red_frame);
+                }
+            });
+
+            // debugging code, delete when working...
+            console.log("Red frame array:");
+            console.log(red_frame);
+
+            // Chart plotting
+            Plotly.plot('chart',[{
+                y:[red_frame[0]],
+                type:'line'
+            }]);
+            
+            var cnt = 0;
+            for (let i = 1; i < red_frame.length; i++){
+                Plotly.extendTraces('chart',{ y:[[red_frame[i]]]}, [0]);
+                if(i > 500) {
+                    Plotly.relayout('chart',{
+                        xaxis: {
+                            range: [i-500,i]
+                        }
+                    });
+                }
+            }
+        </script>
+    </div>
+    </body>
+</html>

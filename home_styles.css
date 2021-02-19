@@ -43,72 +43,72 @@
         }
 /* Header styles ends here*/
 
-.portfolio-wrapper{
-    display: grid;
-    grid-template-columns: 0.5fr 0.5fr;
-}
-.portfolio-item-wrapper{
-    position: relative;
-}
-.portfolio-img-bg{
-    height: 200px;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: brightness(100%);
-}
-.portfolio-img-bg:hover{
-    filter: brightness(10%);
-}
-.text-img-wrapper{
-    position: absolute;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    text-align: center;
-    padding-left: 50px;
-    padding-right: 50px;
-}
+    .portfolio-wrapper{
+        display: grid;
+        grid-template-columns: 0.5fr 0.5fr;
+    }
+    .portfolio-item-wrapper{
+        position: relative;
+    }
+    .portfolio-img-bg{
+        height: 200px;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: brightness(100%);
+    }
+    .portfolio-img-bg:hover{
+        filter: brightness(10%);
+    }
+    .text-img-wrapper{
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
 
-/* darkening animation when hovered on*/
-.text-img-wrapper .subtitle{
-    transition: 1s;
-    font-size: 12px;
-    font-weight: 550;
-    color: transparent;
-}
-.text-img-wrapper:hover .subtitle{
-    font-weight: 550;
-    font-size: 15px;
-    color: white;
-}
-.text-img-wrapper .subtitle a{
-    transition: 1s;
-    font-size: 12px;
-    font-weight: 550;
-    color: transparent;
-}
-.text-img-wrapper:hover .subtitle a{
-    font-weight: 550;
-    font-size: 15px;
-    color: white;
-}
-.logo-wrapper img{
-    width: 25%;
-    height: 100px;
-}
-.img-darken{
-    transition: 1s;
-    filter: brightness(10%);
-}
-.video-recorder{
-    display: flex;
-    justify-content: center;
-}
+    /* darkening animation when hovered on*/
+    .text-img-wrapper .subtitle{
+        transition: 1s;
+        font-size: 12px;
+        font-weight: 550;
+        color: transparent;
+    }
+    .text-img-wrapper:hover .subtitle{
+        font-weight: 550;
+        font-size: 15px;
+        color: white;
+    }
+    .text-img-wrapper .subtitle a{
+        transition: 1s;
+        font-size: 12px;
+        font-weight: 550;
+        color: transparent;
+    }
+    .text-img-wrapper:hover .subtitle a{
+        font-weight: 550;
+        font-size: 15px;
+        color: white;
+    }
+    .logo-wrapper img{
+        width: 25%;
+        height: 100px;
+    }
+    .img-darken{
+        transition: 1s;
+        filter: brightness(10%);
+    }
+    .video-recorder{
+        display: flex;
+        justify-content: center;
+    }
 
 /* small screen setting */
 @media only screen and (max-width: 550px){
@@ -155,4 +155,71 @@
             color: blue;
         }
 /* Header styles ends here*/
+/* image styles */
+        .portfolio-wrapper{
+            display: grid;
+            grid-template-columns: 0.5fr 0.5fr;
+        }
+        .portfolio-item-wrapper{
+            position: relative;
+        }
+        .portfolio-img-bg{
+            height: 100px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(100%);
+        }
+        .portfolio-img-bg:hover{
+            filter: brightness(10%);
+        }
+        .text-img-wrapper{
+            position: absolute;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        /* darkening animation when hovered on*/
+        .text-img-wrapper .subtitle{
+            transition: 1s;
+            font-size: 12px;
+            font-weight: 550;
+            color: transparent;
+        }
+        .text-img-wrapper:hover .subtitle{
+            font-weight: 550;
+            font-size: 15px;
+            color: white;
+        }
+        .text-img-wrapper .subtitle a{
+            transition: 1s;
+            font-size: 12px;
+            font-weight: 550;
+            color: transparent;
+        }
+        .text-img-wrapper:hover .subtitle a{
+            font-weight: 550;
+            font-size: 15px;
+            color: white;
+        }
+        .logo-wrapper img{
+            width: 25%;
+            height: 30px;
+        }
+        .img-darken{
+            transition: 1s;
+            filter: brightness(10%);
+        }
+        .video-recorder{
+            display: flex;
+            justify-content: center;
+        }
 }

@@ -1,14 +1,5 @@
 // This script uses the getUserMedia() function to access any inherent camera in the device
 
-// Establishing global variables...
-let display = document.getElementById("display");
-let recording = document.getElementById("recording");
-let startButton = document.getElementById("startButton");
-let stopButton = document.getElementById("stopButton");
-let downloadButton = document.getElementById("downloadButton");
-let videoMessage = document.getElementById("overlay-message");
-let logElement = document.getElementById("log");
-let recordingTimeMS = 15000;
 
 // Utility functions
 function wait(delayInMS) {
@@ -49,11 +40,46 @@ function stop(stream) {
     stream.getTracks().forEach(track => track.stop());
 }
 
+// ---------------------------------------------------------------------
+
+// Main method starts here...
+// Establishing global variables...
+let display = document.getElementById("display");
+let recording = document.getElementById("recording");
+let startButton = document.getElementById("startButton");
+let stopButton = document.getElementById("stopButton");
+let downloadButton = document.getElementById("downloadButton");
+let videoMessage = document.getElementById("overlay-message");
+let logElement = document.getElementById("log");
+let recordingTimeMS = 15000;
+
+//let plot_button = document.getElementById("chart-plot");
+
 // Some predefined messages...
 var recording_message = "Recording pulse...";
 var brightness_message = "Room too dark!";
 var pressure_message = "Try pressing more firmly";
 
+// Real-time chart
+/*plot_button.addEventListener("click", function() {
+    Plotly.plot('chart',[{
+        y: [Math.random()],
+        type:'line'
+    }]);
+    
+    var cnt = 0;
+    setInterval(function(){
+        Plotly.extendTraces('chart',{ y:[Math.random()] }, [0]);
+        cnt++;
+        if(cnt > 500) {
+            Plotly.relayout('chart',{
+                xaxis: {
+                    range: [cnt-500,cnt]
+                }
+            });
+        }
+    },15);
+}, false);*/
 // Setting up recording event by the user
 startButton.addEventListener("click", function() {
     navigator.mediaDevices.getUserMedia({video: true}).then(function(stream){
