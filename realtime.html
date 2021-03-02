@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial_scale=1">
+        <link rel="stylesheet" href="realtime_styles.css">
+        <title>Camera Recording</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="left-side">
+                    <div class="navigations">
+                        <a href="index.html">Home</a>
+                    </div>
+                    <div class="navigations">
+                        <a href="about.html", target="_blank">About</a>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <div class="websiteName">
+                        <h1>AFib Detection App</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="video-processing">
+                <div class="left">
+                    <div class="video-controls">
+                        <div class="start"><button id="startButton">Start</button></div>
+                        <div class="stop"><button id="stopButton">Stop</button></div>
+                    </div>
+                    <p>Video display</p>
+                    <video id="display" autoplay playsinline></video>
+                    <div class="video-overlay">
+                        <p id="overlay-message"></p>
+                    </div>
+                </div>
+                <div class="right">
+                    <p>Canvas display</p>
+                    <canvas id="output-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+        <script src="realtime_processing.js"></script>
+    </body>
+</html>
