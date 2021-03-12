@@ -53,6 +53,7 @@
             grid: 1fr;
         }
         .left video{
+            position: absolute;
             z-index: 1;
             width: 10px;
             height: 10px;
@@ -70,18 +71,21 @@
             background-color: crimson;
             z-index: 3;
         }
-
-        .right{
-            display: grid;
-            grid: 1fr;
-            justify-content: center;
+        .left canvas{
+            margin-top: 40px;
+            margin-bottom: 40px;
+            position: absolute;
         }
-        .video-overlay{
+        .left > .overlay-message{
             position: absolute;
             margin-top: 100px;
             font-size: large;
             color: blue;
             z-index: 3
+        }
+
+        .plot {
+            margin-top: 300px;
         }
 
 

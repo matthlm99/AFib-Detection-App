@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial_scale=1">
+        <script src="plotly.min.js"></script>
         <link rel="stylesheet" href="realtime_styles.css">
         <title>Camera Recording</title>
     </head>
@@ -34,13 +35,11 @@
                     <div class="video-overlay">
                         <p id="overlay-message"></p>
                     </div>
-                </div>
-                <div class="right">
-                    <div class="video-overlay">
-                        <p id="overlay-message"></p>
-                    </div>
                     <canvas id="output-canvas"></canvas>
                 </div>
+            </div>
+            <div class="plot">
+                <div id="chart"></div>
             </div>
         </div>
         <script src="realtime_processing.js"></script>

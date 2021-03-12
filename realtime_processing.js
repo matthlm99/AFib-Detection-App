@@ -9,7 +9,6 @@ function log(msg) {
 function stop(stream) {
     stream.getTracks().forEach(track => track.stop());
 }
-
 // Process video frame data
 function computeFrame(){
     if (!display.onplaying) {
@@ -23,44 +22,30 @@ function computeFrame(){
         let frame = context_temp.getImageData(0, 0, canvas_width, canvas_height);
 
         // Red processing and feedback
-        const center = ((canvas_width*canvas_height)/2)-1,
-        UL = 0,
-        UR = (canvas_width-1),
-        BL = (canvas_width*(canvas_height-1))-1,
-        BR = (canvas_width*(canvas_height))-1;
-
+        const center = ((canvas_width*canvas_height)/2)-1
         var rcent = frame.data[(4*center)];
         var rgCent = frame.data[(4*center)]/frame.data[(4*center)+1];
-        var rbCent = frame.data[(4*center)]/frame.data[(4*center)+2];
-        var redCornMax = Math.max(frame.data[(4*UL)],frame.data[(4*UR)],frame.data[(4*BL)],frame.data[(4*BR)]);
-        var greenCornMax = Math.max(frame.data[(4*UL)+1],frame.data[(4*UR)+1],frame.data[(4*BL)+1],frame.data[(4*BR)+1]);
-        var redCornMin = Math.min(frame.data[(4*UL)],frame.data[(4*UR)],frame.data[(4*BL)],frame.data[(4*BR)]);
-        var greenCornMin = Math.min(frame.data[(4*UL)+1],frame.data[(4*UR)+1],frame.data[(4*BL)+1],frame.data[(4*BR)+1]);
-        var rgCornMax = redCornMax/greenCornMax;
-        var rgCornMin = redCornMin/greenCornMin;
-
+        
         var Red = 0;
-        var Green = 0;
-
         for (i = 0; i < frame.data.length-1; i = i + 4){
             Red = Red + frame.data[i];
         }
         Red = Red/(frame.data.length/4);
+        //console.log('red average = ' + Red);
 
         // Finger feedback and tracking
+        Finger = 0;
+        RedAv = [];
         if (rgCent < 7){
             videoMessage.innerText= "Place Finger Over Camera"
             Finger = 0;
             RedAv = [];
         }
-        else if (rgCent > 7){
+        else if (rgCent >= 7){
             videoMessage.innerText= "";
-            if (!Finger){
-                Finger = 0;
-            }
             Finger = Finger + 1;
             if (rcent < 60){
-                videoMessage.innerText = "Too Dark"
+                videoMessage.innerText= "Too Dark"
                 Finger = 0;
                 RedAv = [];
             }          
@@ -82,10 +67,9 @@ function computeFrame(){
         else if (Finger >= 300){
             videoMessage.innerText= "Done";
         }
-
         // Wrap up frame calculation and recurse
         context_1.putImageData(frame, 0, 0);
-        setTimeout(computeFrame, (1000 / 30) + 1);
+        return parseInt(Red);
     }
 }
 
@@ -100,7 +84,6 @@ let videoMessage = document.getElementById("overlay-message");
 let logElement = document.getElementById("log");
 
 // Establish canvas variables
-let red_value = [];
 let canvas_1 = document.getElementById('output-canvas');
 let context_1 = canvas_1.getContext('2d');
 let canvas_temp = document.createElement('canvas');
@@ -117,10 +100,25 @@ else if (window_width > window_height){
 }
 context_temp = canvas_temp.getContext('2d');
 
-// Some predefined messages...
-var recording_message = "Recording pulse...";
-var brightness_message = "Room too dark!";
-var pressure_message = "Try pressing more firmly";
+// Set up plotting chart
+let plotDiv = document.getElementById("chart");
+let initialData = [{
+    x: [0],
+    y: [0],
+    type: 'line'
+}];
+let layout = {
+    title: 'Pulse Data',
+    xaxis: {
+        title: 'Frame number',
+        showgrid: true,
+        zeroline: false
+    },
+    yaxis: {
+        title: 'Pulse Amplitude (Red Value)',
+        showline: false
+    }
+}
 
 // Setting up recording event by the user
 window.addEventListener("load", () => {
@@ -130,8 +128,14 @@ window.addEventListener("load", () => {
             display.srcObject = stream;
             display.captureStream = display.captureStream || display.mozCaptureStream;
             return new Promise(resolve => display.onplaying = resolve);
-            }).then(computeFrame)
-            console.log(red_value);
+            }).then(() => {
+                Plotly.plot(plotDiv, initialData, layout);
+                setInterval(function(){
+                    red_value = computeFrame();
+                    console.log('red = ' + red_value);
+                    Plotly.extendTraces(plotDiv, {y:[[red_value]]}, [0]);
+                }, (1000 / 30) + 1)
+            })
     }, false);
 
 // Event listener for stopping recording
