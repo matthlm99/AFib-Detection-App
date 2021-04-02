@@ -49,23 +49,54 @@
                         </div>
                     </div>
                 </div>
-                <script src="image_animation.js"></script>
+                <div class="video-processor">
+                    <p><i>Video Output</i></p>
+                    <video id="input-video" autoplay muted></video>
+                    <canvas id="output-canvas"></canvas>
+                    <script>
+                        // Video Processing functions
+                        function init() {
+                            video = document.getElementById('input-video');
+                            red_value = [];
+
+                            c1 = document.getElementById('output-canvas');
+                            ctx1 = c1.getContext('2d');
+
+                            c_tmp = document.createElement('canvas');
+                            c_tmp.setAttribute('width', 300);
+                            c_tmp.setAttribute('height', 350);
+                            ctx_tmp = c_tmp.getContext('2d');
+
+                            video.addEventListener('play', computeFrame);
+                        }
+
+                        function computeFrame() {
+                            if (video.paused || video.ended) {
+                            return;
+                            }
+                            ctx_tmp.drawImage(video, 0, 0, video.videoWidth , video.videoHeight );
+                            let frame = ctx_tmp.getImageData(0, 0, video.videoWidth , video.videoHeight );
+
+                            let red_frame = [];
+                            for (let i = 0; i < frame.data.length /4; i++) {
+                                red_frame.push(frame.data[i * 4]);
+                            }
+                            let redAverage = 0;
+                            for (let i = 0; i < red_frame.length; i++){
+                                redAverage += red_frame[i];
+                            }
+                            redAverage = redAverage / red_frame.length;
+                            red_value.push(redAverage);
+                            ctx1.putImageData(frame, 0, 0);
+                            setTimeout(computeFrame, 0);
+                        }
+                        // ---Main Method---
+                        let video, c1, ctx1, c_tmp, ctx_tmp, red_value;
+                        red_value = init();
+                    </script>
+                </div>
+                <!--<script src="content_navigation.js"></script>-->
             </div>
-        <!--
-            <div class="search-bar">
-                <p>Try searching for an ailment...</p>
-                <textarea id="searchBar"></textarea>
-                <button id="searchButton">Search</button>
-                <ul id="searchList"></ul> 
-                <script src="search.js"></script>
-            </div>
-            <div class="login-prompt">
-                <p><i>User login here</i></p>
-                <textarea id="loginBar"></textarea>
-                <button id="loginButton">Sign In</button>
-            </div>
-        -->
-        <script src="image_animation.js"></script>
         </div>
     </body>
 </html>

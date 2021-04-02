@@ -101,21 +101,19 @@
         width: 25%;
         height: 100px;
     }
-    .img-darken{
-        transition: 1s;
-        filter: brightness(10%);
-    }
-    .video-recorder{
-        display: flex;
-        justify-content: center;
-    }
 
 /* small screen setting */
 @media only screen and (max-width: 550px){
+*{
+    margin: 0;
+    padding: 0;
+}
 .body{
     margin: 0px;
 }
 .container{
+    overflow-x: hidden;
+    background: rgbs(0,0,0,0);
     display: grid;
     grid-template-columns: 1fr;
 }
@@ -152,16 +150,29 @@
             transition: color 0.5s;
         }
         .navigations a:hover{
-            color: blue;
+            color: skyblue;
         }
 /* Header styles ends here*/
-/* image styles */
-        .portfolio-wrapper{
-            display: grid;
-            grid-template-columns: 0.5fr 0.5fr;
-        }
+/* Homepage styles */
+.content-wrapper{
+    --n: 1;
+    display: flex;
+    overflow-y: hidden;
+    align-items:center;
+    width: calc(var(--n)*100%);
+    transform: translate(calc(var(--i, 0)/var(--n)*-100%));
+}
+    /* Landing Page styles*/
+    .portfolio-wrapper{
+        display: grid;
+        min-width: 100%;
+        width: 100%;
+        grid-template-columns: 1fr;
+    }
         .portfolio-item-wrapper{
             position: relative;
+            height: 100%;
+            width: 100%;
         }
         .portfolio-img-bg{
             height: 100px;
@@ -186,40 +197,15 @@
             padding-left: 50px;
             padding-right: 50px;
         }
-
-        /* darkening animation when hovered on*/
-        .text-img-wrapper .subtitle{
-            transition: 1s;
-            font-size: 12px;
-            font-weight: 550;
-            color: transparent;
-        }
-        .text-img-wrapper:hover .subtitle{
-            font-weight: 550;
-            font-size: 15px;
-            color: white;
-        }
-        .text-img-wrapper .subtitle a{
-            transition: 1s;
-            font-size: 12px;
-            font-weight: 550;
-            color: transparent;
-        }
-        .text-img-wrapper:hover .subtitle a{
-            font-weight: 550;
-            font-size: 15px;
-            color: white;
-        }
         .logo-wrapper img{
             width: 25%;
-            height: 30px;
+            height: 75px;
         }
-        .img-darken{
-            transition: 1s;
-            filter: brightness(10%);
-        }
-        .video-recorder{
-            display: flex;
-            justify-content: center;
-        }
+    /* Video processing styles*/
+    .video-processor{
+        display: grid;
+        min-width: 100%;
+        width: 100%;
+        grid-template-columns: 1fr;
+    }
 }
