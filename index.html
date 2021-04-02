@@ -69,7 +69,7 @@
                                 .then((stream)=>{
                                     video.srcObject = stream;
                                     video.captureStream = video.captureStream || video.mozCaptureStream;
-                                    return new Promise(resolve => video.onplaying = resolve);
+                                    processor.computeFrame();
                                 }, false)
                             }, false);
                     </script>
