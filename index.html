@@ -10,12 +10,14 @@
         <div class="container">
             <div class="header">
                 <div class="left-side">
-                    <div class="navigations">
-                        <a href="index.html">Home</a>
+                    <div class="dropdownMenu">
+                        <button onclick="myFunction()" class="dropbtn">...</button>
+                        <div id="myDropdown" class="dropdown-content">
+                          <a href="index.html">Home</a>
+                          <a href="about.html">About</a>
+                        </div>
                     </div>
-                    <div class="navigations">
-                        <a href="about.html", target="_blank">About</a>
-                    </div>
+                    <script src="dropdown_menu.js"></script>
                 </div>
 
                 <div class="right-side">
@@ -32,9 +34,6 @@
                             <div class="logo-wrapper">
                                 <img src="camera-logo.png" alt="">
                             </div>
-                            <div class="subtitle">
-                                <a href="realtime.html" target="_blank">Start taking your pulse!</a>
-                            </div>
                         </div>
                     </div>
                     <div class="portfolio-item-wrapper">
@@ -43,40 +42,20 @@
                             <div class="logo-wrapper">
                                 <img src="ecg-signal.png" alt="">
                             </div>
-                            <div class="subtitle">
-                                <a href="documentation.html" target="_blank">How do we process your pulse?</a>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="video-processor">
-                    <p><i>Video Output</i></p>
                     <video id="input-video" autoplay muted></video>
                     <canvas id="output-canvas"></canvas>
                     <script>
                         // Video Processing functions
-                        function init() {
-                            video = document.getElementById('input-video');
-                            red_value = [];
-
-                            c1 = document.getElementById('output-canvas');
-                            ctx1 = c1.getContext('2d');
-
-                            c_tmp = document.createElement('canvas');
-                            c_tmp.setAttribute('width', 300);
-                            c_tmp.setAttribute('height', 350);
-                            ctx_tmp = c_tmp.getContext('2d');
-
-                            video.addEventListener('play', computeFrame);
-                        }
-
-                        function computeFrame() {
+                        const processor = function computeFrame() {
                             if (video.paused || video.ended) {
                             return;
                             }
                             ctx_tmp.drawImage(video, 0, 0, video.videoWidth , video.videoHeight );
-                            let frame = ctx_tmp.getImageData(0, 0, video.videoWidth , video.videoHeight );
-
+                            let frame = ctx_tmp.getImageData(0, 0, video.videoWidth , video.videoHeight);
                             let red_frame = [];
                             for (let i = 0; i < frame.data.length /4; i++) {
                                 red_frame.push(frame.data[i * 4]);
@@ -88,11 +67,29 @@
                             redAverage = redAverage / red_frame.length;
                             red_value.push(redAverage);
                             ctx1.putImageData(frame, 0, 0);
-                            setTimeout(computeFrame, 0);
+                            setTimeout(()=>{
+                                processor.computeFrame()
+                            }, 50)
                         }
                         // ---Main Method---
-                        let video, c1, ctx1, c_tmp, ctx_tmp, red_value;
-                        red_value = init();
+                        let video = document.getElementById('input-video'),
+                            red_value = [],
+                            c1 = document.getElementById('output-canvas'),
+                            ctx1 = c1.getContext('2d'),
+                            c_tmp = document.createElement('canvas');
+                        c_tmp.setAttribute('width', 300);
+                        c_tmp.setAttribute('height', 350);
+                        let ctx_tmp = c_tmp.getContext('2d');
+
+                        window.addEventListener("load", () => {
+                            navigator.mediaDevices
+                                .getUserMedia({video: {facingMode: 'user', frameRate: 30}, audio: false})
+                                .then((stream)=>{
+                                    video.srcObject = stream;
+                                    video.captureStream = video.captureStream || video.mozCaptureStream;
+                                    return new Promise(resolve => video.onplaying = resolve);
+                                }, false)
+                            }, false);
                     </script>
                 </div>
                 <!--<script src="content_navigation.js"></script>-->
