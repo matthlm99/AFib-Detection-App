@@ -1,12 +1,10 @@
 // This javascript code controls the locking and scrolling mechanism of the app
-
 // ----- Main Method -----
 // Access relevant elements and compute dimensions
 var content_screen = document.querySelector(".content-wrapper");
 var video_processor = document.querySelector(".video-processor");
 var portfolio_wrapper = document.querySelector(".portfolio-wrapper");
 var header_element = document.querySelector(".header");
-console.log(content_screen.screenX);
 
 // Calculate screen dimensions
 var content_width = content_screen.scrollWidth,
