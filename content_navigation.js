@@ -1,26 +1,31 @@
-const _C = document.querySelector('.content-wrapper'),
-    N = _C.children.length;
+// This javascript code controls the locking and scrolling mechanism of the app
 
-_C.style.setProperty('--n', N);
-function unify(e) {
-    return e.changedTouches ? e.changedTouches[0] : e
-};
-let x0 = null;
-let i = 0;
-function move(e) {
-    if(x0 || x0 === 0) {
-        let dx = unify(e).clientX - x0, s = Math.sign(dx);
-      
-        if((i > 0 || s < 0) && (i < N - 1 || s > 0))
-          _C.style.setProperty('--i', i -= s);
-        
-        x0 = null
-      }
+// ----- Main Method -----
+// Access relevant elements and compute dimensions
+var content_screen = document.querySelector(".content-wrapper");
+var video_processor = document.querySelector(".video-processor");
+var portfolio_wrapper = document.querySelector(".portfolio-wrapper");
+var header_element = document.querySelector(".header");
+console.log(content_screen.screenX);
+
+// Calculate screen dimensions
+var content_width = content_screen.scrollWidth,
+    content_height = content_screen.scrollHeight;
+
+const midScreen_positionX = video_processor.clientWidth / 2,
+    videoProcessor_positionX = 0,
+    portfolioWrapper_positionX = video_processor.clientWidth;
+
+window.addEventListener('touchend', ()=>{
+    screenLock(videoProcessor_positionX, portfolioWrapper_positionX);
+})
+
+// Function for locking screen
+function screenLock(videoProcessor_positionX, portfolioWrapper_positionX){
+    content_screen.scrollTo(portfolioWrapper_positionX, 5);
+    if (content_screen.screenX > midScreen_positionX){
+        content_screen.scrollTo(portfolioWrapper_positionX, 5);
+    } else if (content_screen.screenX < midScreen_positionX){
+        content_screen.scrollTo(videoProcessor_positionX, 5);
+    } 
 }
-function lock(e) {
-    x0 = unify(e).clientX;
-}
-_C.addEventListener('mousedown', lock, false);
-_C.addEventListener('touchstart', lock, false);
-_C.addEventListener('mouseup', move, false);
-_C.addEventListener('touchend', move, false);

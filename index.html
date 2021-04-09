@@ -13,8 +13,9 @@
                     <div class="dropdownMenu">
                         <button onclick="myFunction()" class="dropbtn">...</button>
                         <div id="myDropdown" class="dropdown-content">
-                          <a href="index.html">Home</a>
-                          <a href="about.html">About</a>
+                          <a href="index.html" target='_blank'>Home</a>
+                          <a href="about.html" target='_blank'>About</a>
+                          <a href="documentation.html" target='_blank'>Documentation</a>
                         </div>
                     </div>
                     <script src="dropdown_menu.js"></script>
@@ -28,50 +29,33 @@
             </div>
             <div class="content-wrapper">
                 <div class="video-processor">
+                    <button id="toggle-camera"><></button>
                     <video id="input-video" autoplay playsinline></video>
                     <canvas id="output-canvas"></canvas>
                     <script>
-                        // Video Processing functions
-                        const processor = function computeFrame() {
-                            if (video.paused || video.ended) {
-                            return;
-                            }
-                            ctx_tmp.drawImage(video, 0, 0, video.videoWidth , video.videoHeight );
-                            let frame = ctx_tmp.getImageData(0, 0, video.videoWidth , video.videoHeight);
-                            let red_frame = [];
-                            for (let i = 0; i < frame.data.length /4; i++) {
-                                red_frame.push(frame.data[i * 4]);
-                            }
-                            let redAverage = 0;
-                            for (let i = 0; i < red_frame.length; i++){
-                                redAverage += red_frame[i];
-                            }
-                            redAverage = redAverage / red_frame.length;
-                            red_value.push(redAverage);
-                            ctx1.putImageData(frame, 0, 0);
-                            setTimeout(()=>{
-                                processor.computeFrame()
-                            }, 50)
+                        function putImage(){
+                            canvas_height_multiplier = 0.5;
+                            const w = cameraCanvas.clientWidth;
+                            const h = canvas_height_multiplier * cameraCanvas.clientHeight;
+                            context.drawImage(video,0,0,w,h);
+                            let frame = context.getImageData(0, 0, w, h);
+                            context.putImageData(frame, 0, 0);
                         }
-                        // ---Main Method---
-                        let video = document.getElementById('input-video'),
-                            red_value = [],
-                            c1 = document.getElementById('output-canvas'),
-                            ctx1 = c1.getContext('2d'),
-                            c_tmp = document.createElement('canvas');
-                        c_tmp.setAttribute('width', 300);
-                        c_tmp.setAttribute('height', 350);
-                        let ctx_tmp = c_tmp.getContext('2d');
-
-                        window.addEventListener("load", () => {
+                        var video = document.getElementById('input-video');
+                        var cameraCanvas = document.getElementById('output-canvas');
+                        var context = cameraCanvas.getContext("2d");
+                        cameraCanvas.width = window.innerWidth;
+                        cameraCanvas.height = window.innerHeight;
+                        window.addEventListener('load', () =>{
                             navigator.mediaDevices
-                                .getUserMedia({video: {facingMode: 'user', frameRate: 30}, audio: false})
-                                .then((stream)=>{
-                                    video.srcObject = stream;
-                                    video.captureStream = video.captureStream || video.mozCaptureStream;
-                                    processor.computeFrame();
-                                }, false)
-                            }, false);
+                            .getUserMedia({video: {facingMode: 'user', frameRate: 30}, audio: false})
+                            .then((stream) =>{
+                                video.srcObject = stream;
+                                video.captureStream = video.captureStream || video.mozCaptureStream;
+                                putImage();
+                            })
+                        })
+                        setInterval(putImage, 30);
                     </script>
                 </div>
                 <div class="portfolio-wrapper">
@@ -92,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <!--<script src="content_navigation.js"></script>-->
+                <script src="content_navigation.js"></script>
             </div>
         </div>
     </body>
