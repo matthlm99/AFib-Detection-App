@@ -1,9 +1,0 @@
-.wrapper{
-    display: grid;
-    grid: 1fr;
-    justify-content: center;
-}
-.wrapper video{
-    width: 300px;
-    height: 350px;
-}
