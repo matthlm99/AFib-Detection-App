@@ -122,7 +122,7 @@
     grid-template-columns: 1fr;
 }
     .header{
-        background: black;
+        background: lightgrey;
         display: flex;
         justify-content: space-between;
         margin-top: 2px;
@@ -137,9 +137,12 @@
         .right-side{
             display: flex;
             margin-right: 5px;
-            font-size: 0.4em;
             color: white;
         }
+            .right-side img{
+                width:75px;
+                height:75px;
+            }
         .header > .left-side > div{
             margin-right: 5px;
             font-size: 0.4em;
@@ -158,8 +161,8 @@
         }
         /* Dropdown Button */
         .dropbtn {
-            background-color: black;
-            color: white;
+            background-color: transparent;
+            color: black;
             padding: 0px;
             font-size: 20px;
             border: none;
