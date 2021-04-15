@@ -20,7 +20,6 @@ window.addEventListener('touchend', ()=>{
 
 // Function for locking screen
 function screenLock(videoProcessor_positionX, portfolioWrapper_positionX){
-    content_screen.scrollTo(portfolioWrapper_positionX, 5);
     if (content_screen.screenX > midScreen_positionX){
         content_screen.scrollTo(portfolioWrapper_positionX, 5);
     } else if (content_screen.screenX < midScreen_positionX){
