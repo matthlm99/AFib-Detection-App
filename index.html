@@ -18,11 +18,26 @@
                 });
             }
         </script>
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('service-worker.js').then(function(registration){
+                        // Registration was successful
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    },function(err){
+                            // Registration failed :(
+                            console.log('ServiceWorker registration failed: ', err);
+                        });
+                });
+            }
+        </script>
         <script src="service-worker.js"></script>
     </head>
     <body>
         <div class="container">
+
             <div class="header">
+
                 <div class="left-side">
                     <div class="dropdownMenu">
                         <button onclick="myFunction()" class="dropbtn">...</button>
@@ -39,12 +54,16 @@
                         <img src="aphid-logo.png">
                     </div>
                 </div>
+
             </div>
+
             <div class="content-wrapper">
+
                 <div class="video-processor">
                     <video id="input-video" autoplay playsinline></video>
                     <canvas id="output-canvas"></canvas>
                 </div>
+
                 <div class="portfolio-wrapper">
                     <div class="portfolio-item-wrapper">
                         <div class="loaders">
@@ -58,6 +77,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
             <script src="dropdown_menu.js"></script>
             <script src="video_canvas_processing.js"></script>
