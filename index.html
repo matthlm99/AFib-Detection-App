@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial_scale=1">
         <link rel="stylesheet" href="home_styles.css">
-        <title>AFib Detection App</title>
+        <title>AFiD</title>
         <script>
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
@@ -32,7 +32,6 @@
                           <a href="documentation.html" target='_blank'>Documentation</a>
                         </div>
                     </div>
-                    <script src="dropdown_menu.js"></script>
                 </div>
 
                 <div class="right-side">
@@ -43,13 +42,14 @@
             </div>
             <div class="content-wrapper">
                 <div class="video-processor">
-                    <button id="toggle-camera"><></button>
                     <video id="input-video" autoplay playsinline></video>
                     <canvas id="output-canvas"></canvas>
-                    <script src="video_canvas_processing.js"></script>
                 </div>
                 <div class="portfolio-wrapper">
                     <div class="portfolio-item-wrapper">
+                        <div class="loaders">
+                            <div class="heartbeat-loader" id="heartbeat-loader"></div>
+                        </div>
                         <div class="portfolio-img-bg" style="background-image:url(phone-camera.jpg)"></div>
                         <div class="text-img-wrapper">
                             <div class="logo-wrapper">
@@ -59,6 +59,9 @@
                     </div>
                 </div>
             </div>
+            <script src="dropdown_menu.js"></script>
+            <script src="video_canvas_processing.js"></script>
+            <!--script src="loader-toggle.js"></script>-->
             <script src="content_navigation.js"></script>
         </div>
     </body>
