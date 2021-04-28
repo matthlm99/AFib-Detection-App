@@ -237,6 +237,10 @@
             display: flex;
             justify-content: center;
             position: absolute;
+            margin-top: 67.5px;
+            margin-left: 137.5px;
+            margin-right: 137.5px;
+            margin-bottom: 67.5px;
             z-index: 4;
         }
             .heartbeat-loader {
