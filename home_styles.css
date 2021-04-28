@@ -213,20 +213,24 @@
     overflow-x: scroll;
     overflow-y: scroll;
 }
-    /* Landing Page styles*/
-    .portfolio-wrapper{
+    /* Video processing styles*/
+    .video-processor{
         display: grid;
-        min-width: 100%;
+        align-content: center;
         width: 100%;
         height: 100%;
-        grid-template-columns: 1fr;
+        margin: 0;
     }
-        .portfolio-item-wrapper{
-            position: relative;
-            display: flex;
-            justify-content: center;
-            height: 100%;
-            width: 100%;
+        .video-processor canvas{
+            margin-left:37.5px;
+            margin-right:37.5px;
+            position:relative;
+        }
+
+        #feedback{
+            margin-left:37.5px;
+            position: absolute;
+            color: blue;
         }
         /* various loading icons */
         .loaders{
@@ -290,56 +294,5 @@
                 75% {transform: scale(0.75);}
                 100% {transform: scale(0.75);}
             }
-            
-            .portfolio-img-bg{
-                height: 100%;
-                width: 100%;
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                filter: brightness(100%);
-            }
-            .portfolio-img-bg:hover{
-                filter: brightness(10%);
-            }
-            .text-img-wrapper{
-                position: absolute;
-                top: 0;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                text-align: center;
-                padding-left: 50px;
-                padding-right: 50px;
-            }
-            .logo-wrapper img{
-                width: 25%;
-                height: 75px;
-            }
-    /* Video processing styles*/
-    .video-processor{
-        display: grid;
-        grid-template-rows: auto;
-        min-width: 100%;
-        width: 100%;
-        height: 100%;
-        grid-template-columns: 1fr;
-    }
-        .video-processor button{
-            z-index: 3;
-            margin-left: 137.5;
-            position: absolute;
-        }
-        .video-processor video{
-            z-index: 1;
-            width: 0.1%;
-            height: 0.1%;
-        }
-        .video_processor img{
-            z-index: 1;
-            width: 25%;
-            height: 25%;
-        }
+
 }
