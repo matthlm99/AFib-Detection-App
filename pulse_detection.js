@@ -78,20 +78,20 @@ function ImStream(){
             var wWidth = window.innerWidth;
             var wHeight = window.innerHeight;
             
-            if (wWidth<wHeight){
-                cameraCanvas.height = 225;
-                cameraCanvas.width = 300;
-                Wave.height = 225;
-                Wave.width = 300;
+            if (wWidth<wHeight){ // portrait orientation
+                cameraCanvas.height = wHeight / 2;
+                cameraCanvas.width = (3/4) * cameraCanvas.height;
+                Wave.height = wHeight / 2;
+                Wave.width = (3/4) * Wave.height;
                 Feedback.style.width = '300px';
                 Feedback.style.height = '225px';
             }
 
             else if (wWidth > wHeight){
-                cameraCanvas.height = 300;
-                cameraCanvas.width = 400;
-                Wave.height = 300;
-                Wave.width = 400;
+                cameraCanvas.width = wWidth;
+                cameraCanvas.height = (3/4) * (cameraCanvas.width / 2);
+                Wave.width = wWidth;
+                Wave.height = (3/4) * (Wave.width / 2);
                 Feedback.style.width = '400px';
                 Feedback.style.height = '300px';
             }
