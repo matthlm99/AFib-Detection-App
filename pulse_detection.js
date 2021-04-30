@@ -340,6 +340,23 @@ function dataProcess() {
         	total += RR[k];
     	}
     	var HeartRate = 1800 * RR.length / total;
-    	HR.innerHTML = String(locs).concat(' bpm');
-	
+    	HR.innerHTML = String(HeartRate).concat(' bpm');
+
+        // Export collected data
+        var export_RR = "data:text/csv;charset=utf-8,";
+        locs.forEach(function(peak_location){
+            export_RR += peak_location + "\r\n";
+        })
+
+        var link = document.createElement("a");
+        link.setAttribute("href", encodeURI(export_RR));
+        link.setAttribute("download", "RR_timestamps.csv");
+        document.body.appendChild(link); // Required for FF
+        link.click(); // This will download the csv file
+
+        // Cache downloaded file
+        caches.open('AFib-Detection-App-').then(function(current_cache){
+            console.log('Opened cache for data export');
+            current_cache.add('/RR_timestamps.csv');
+        })
 }

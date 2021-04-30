@@ -4,14 +4,10 @@ var cache_files = [
     '/',
     '/index.html',
     '/service-worker.js',
-    '/content_navigation.js',
+    '/pulse_detection.js',
     '/dropdown_menu.js',
-    '/video_canvas_processing.js',
     '/home_styles.css',
-    '/camera-logo.png',
-    '/ecg-signal.png',
-    '/matlab-bg.png',
-    '/phone-camera.jpg'
+    '/aphid-logo.png',
 ]
 
 self.addEventListener('install', function(event) {
@@ -45,7 +41,7 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-    var cacheAllowlist = ['pages-cache-v1', 'blog-posts-cache-v1'];
+    var cacheAllowlist = ['AFib-Detection-App-'];
     event.waitUntil(
         caches.keys().then(function(cacheNames) {
             return Promise.all(
