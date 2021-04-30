@@ -227,6 +227,10 @@
             position:relative;
         }
 
+        .video-processor button{
+            background-color: red;
+            color: black;
+        }
         #feedback{
             margin-left:37.5px;
             position: absolute;
