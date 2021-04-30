@@ -1,5 +1,5 @@
 // Initialize cache files
-var cache_name = "AFib-Detection-App-";
+var cache_name = "AFib-Detection-App";
 var cache_files = [
     '/',
     '/index.html',

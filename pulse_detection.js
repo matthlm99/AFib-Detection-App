@@ -45,7 +45,6 @@ function cameraStart() {
         cameraView.srcObject = stream;
 
         FR = track.getSettings().frameRate;
-        console.log(FR);
 
         if (FR == 30){
             B = [0.3375, 0, -0.3375];
