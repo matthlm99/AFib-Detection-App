@@ -349,7 +349,7 @@ function dataProcess() {
         red_timing.push(i / FPS);
     }
     export_RR += RedAvFilt + "\r\n" + red_timing;
-    /*var link = document.createElement("a");
+    var link = document.createElement("a");
     link.setAttribute("href", encodeURI(export_RR));
     link.setAttribute("download", "red_waveform.csv");
     document.body.appendChild(link); // Required for FF
@@ -359,7 +359,7 @@ function dataProcess() {
     caches.open('AFib-Detection-App-').then(function(current_cache){
         console.log('Opened cache for data export');
         current_cache.add('/red_waveform.csv');
-    })*/
+    })
 
 
     // Drawing resulting waveform 
