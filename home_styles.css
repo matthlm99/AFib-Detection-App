@@ -214,6 +214,18 @@
     overflow-y: scroll;
 }
     /* Video processing styles*/
+    .visualize-results{
+        display: grid;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        margin: 10px;
+    }
+        .visualize-results canvas{
+            z-index: 4;
+            margin-left: 20px;
+        }
+
     .video-processor{
         display: grid;
         align-content: center;
@@ -222,8 +234,6 @@
         margin: 0;
     }
         .video-processor canvas{
-            margin-left:37.5px;
-            margin-right:37.5px;
             position:relative;
         }
 
@@ -232,8 +242,7 @@
             color: black;
         }
         #feedback{
-            margin-left:37.5px;
-            position: absolute;
+            position: fixed;
             color: blue;
         }
         /* various loading icons */

@@ -32,7 +32,8 @@ const cameraView = document.querySelector("#view"),
     Feedback = document.querySelector("#feedback"),
     HR = document.querySelector("#HR"),
     Wave = document.querySelector("#wave")
-//
+    Visualize = document.querySelector("#visualize");
+
 var loader_object = document.getElementById('heartbeat-loader')
 loader_object.style.visibility = 'hidden';
 
@@ -56,12 +57,27 @@ function cameraStart() {
             A = [1, -1.3399, 0.3589];
             FPS = 60;
         }
-        HR.innerHTML = String(FR).concat(' FPS');
+        HR.innerHTML = String(FR).concat(' FPS'); 
+
+        Visualize.height = 300;
+        Visualize.width = 400;
 
         ctxWave = Wave.getContext('2d');
         waveData = ctxWave.createImageData(Wave.width, Wave.height);
+        ctxVisualize = Visualize.getContext('2d');
+        visualizeData = ctxVisualize.createImageData(Visualize.width, Visualize.height);
 
+        // Draw visualizer template
+        // clear canvas (if another graph was previously drawn)  
+        ctxVisualize.clearRect( 0, 0, 400, 300);   
         
+        // draw X and Y axis  
+        ctxVisualize.beginPath();  
+        ctxVisualize.moveTo(10, 10);  
+        ctxVisualize.lineTo(10, 290 );  
+        ctxVisualize.lineTo(390, 290);  
+        ctxVisualize.stroke(); 
+        console.log("Visualizer template drawn");
     })
     
     .catch(function(error) {
@@ -73,11 +89,10 @@ function cameraStart() {
 
 function ImStream(){
             
-            
             var wWidth = window.innerWidth;
             var wHeight = window.innerHeight;
             
-            if (wWidth<wHeight){ // portrait orientation
+            if (wWidth < wHeight){ // portrait orientation
                 cameraCanvas.height = 300;
                 cameraCanvas.width = 400;
                 Wave.height = 300;
@@ -95,11 +110,8 @@ function ImStream(){
                 Feedback.style.height = '300px';
             }
             
-
-            
             var context = cameraCanvas.getContext('2d');
-            
-
+        
             const w = cameraCanvas.clientWidth;
             const h = cameraCanvas.clientHeight;
             context.drawImage(cameraView,0,0,w,h);
@@ -271,13 +283,11 @@ window.addEventListener("doneEvent",dataProcess, false);
 
 
 Restart.onclick = function(){
+    ctxVisualize.clearRect(0, 0, 400, 300);
     Fin = 0;    
 }
 
 function dataProcess() {
-	
-	
-	
 	function findpeaks(signal1,window){
 		signal1.splice(0,50);
 		var signal = [0];
@@ -319,35 +329,57 @@ function dataProcess() {
 		peaks.shift();
 		return peaks;
 	}
-    	var locs = findpeaks(RedAvFilt,15);
-    	var RR = [locs[1]-locs[0]];
-    	for (j = 2; j < locs.length; j++){
-        	RR.push(locs[j]-locs[j-1]);
-    	}
-    	var total = 0;
-    	for (k = 0; k < RR.length; k++){
-        	total += RR[k];
-    	}
-    	var HeartRate = 1800 * RR.length / total;
-    	HR.innerHTML = String(HeartRate).concat(' bpm');
+    var locs = findpeaks(RedAvFilt,15);
+    var RR = [locs[1]-locs[0]];
+    for (j = 2; j < locs.length; j++){
+        RR.push(locs[j]-locs[j-1]);
+    }
+    var total = 0;
+    for (k = 0; k < RR.length; k++){
+        total += RR[k];
+    }
+    var HeartRate = 1800 * RR.length / total;
+    HR.innerHTML = String(HeartRate).concat(' bpm');
 
-        // Export full waveform
-        var export_RR = "data:text/csv;charset=utf-8,";
-        RedAvFilt.splice(0, FPS*2);
-        var red_timing = [];
-        for (i = 0; i < RedAvFilt.length; i++){
-            red_timing.push(i / FPS);
-        }
-        export_RR += RedAvFilt + "\r\n" + red_timing;
-        var link = document.createElement("a");
-        link.setAttribute("href", encodeURI(export_RR));
-        link.setAttribute("download", "red_waveform.csv");
-        document.body.appendChild(link); // Required for FF
-        link.click(); // This will download the csv file
+    // Export full waveform
+    var export_RR = "data:text/csv;charset=utf-8,";
+    RedAvFilt.splice(0, FPS*2);
+    var red_timing = [];
+    for (i = 0; i < RedAvFilt.length; i++){
+        red_timing.push(i / FPS);
+    }
+    export_RR += RedAvFilt + "\r\n" + red_timing;
+    /*var link = document.createElement("a");
+    link.setAttribute("href", encodeURI(export_RR));
+    link.setAttribute("download", "red_waveform.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click(); // This will download the csv file
 
-        // Cache downloaded file
-        caches.open('AFib-Detection-App-').then(function(current_cache){
-            console.log('Opened cache for data export');
-            current_cache.add('/red_waveform.csv');
-        })
+    // Cache downloaded file
+    caches.open('AFib-Detection-App-').then(function(current_cache){
+        console.log('Opened cache for data export');
+        current_cache.add('/red_waveform.csv');
+    })*/
+
+
+    // Drawing resulting waveform 
+    var largest = 0;  
+    for( var i = 0; i < RedAvFilt.length; i++ ){  
+        if( Math.abs(RedAvFilt[i]) > largest ){  
+            largest = RedAvFilt[i];  
+        }  
+    } 
+
+    ctxVisualize.beginPath();   
+    // make your graph look less jagged  
+    ctxVisualize.lineJoin = "round";  
+    ctxVisualize.strokeStyle = "black";   
+    // add first point in the graph  
+    ctxVisualize.moveTo(0, Visualize.height - ((RedAvFilt[0] / largest) * 0.8* Visualize.height));   
+    // loop over data and add points starting from the 2nd index in the array as the first has been added already  
+    for( var i = 1; i < RedAvFilt.length; i++ ){  
+        ctxVisualize.lineTo(((Visualize.width)/RedAvFilt.length) * i, Visualize.height - ((RedAvFilt[i] / largest) * 0.8 * Visualize.height));  
+    }   
+    // actually draw the graph  
+    ctxVisualize.stroke();
 }
