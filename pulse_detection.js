@@ -78,19 +78,19 @@ function ImStream(){
             var wHeight = window.innerHeight;
             
             if (wWidth<wHeight){ // portrait orientation
-                cameraCanvas.height = wHeight / 2;
-                cameraCanvas.width = (3/4) * cameraCanvas.height;
-                Wave.height = wHeight / 2;
-                Wave.width = (3/4) * Wave.height;
+                cameraCanvas.height = 300;
+                cameraCanvas.width = 400;
+                Wave.height = 300;
+                Wave.width = 400;
                 Feedback.style.width = '300px';
                 Feedback.style.height = '225px';
             }
 
             else if (wWidth > wHeight){
-                cameraCanvas.width = wWidth;
-                cameraCanvas.height = (3/4) * (cameraCanvas.width / 2);
-                Wave.width = wWidth;
-                Wave.height = (3/4) * (Wave.width / 2);
+                cameraCanvas.width = 300;
+                cameraCanvas.height = 400;
+                Wave.width = 300;
+                Wave.height = 400;
                 Feedback.style.width = '400px';
                 Feedback.style.height = '300px';
             }
@@ -122,7 +122,7 @@ function ImStream(){
 
         
 
-           var redCornMax = Math.max(pixels[(4*UL)],pixels[(4*UR)],pixels[(4*BL)],pixels[(4*BR)]);
+            var redCornMax = Math.max(pixels[(4*UL)],pixels[(4*UR)],pixels[(4*BL)],pixels[(4*BR)]);
             var greenCornMax = Math.max(pixels[(4*UL)+1],pixels[(4*UR)+1],pixels[(4*BL)+1],pixels[(4*BR)+1]);
             var redCornMin = Math.min(pixels[(4*UL)],pixels[(4*UR)],pixels[(4*BL)],pixels[(4*BR)]);
             var greenCornMin = Math.min(pixels[(4*UL)+1],pixels[(4*UR)+1],pixels[(4*BL)+1],pixels[(4*BR)+1]);
@@ -148,7 +148,8 @@ function ImStream(){
             //Detect Finger
             if (rgCent < 2 && rbCent < 2){
                 
-                Feedback.innerHTML = "Place Finger Over Camera"
+                Feedback.innerHTML = "Place Finger Over Camera";
+                loader_object.style.visibility = 'hidden';
                 Finger = 0;
                 RedAv = [];
                 RedAvFilt = [];
@@ -212,7 +213,7 @@ function ImStream(){
     
                         waveData.data[Index+2] = 255;
                         waveData.data[Index+3] = 255; 
-    
+                        /*
                         waveData.data[Index+4+2] = 255;
                         waveData.data[Index+3+4] = 255; 
     
@@ -224,6 +225,7 @@ function ImStream(){
     
                         waveData.data[Index-1600+2] = 255;
                         waveData.data[Index+3-1600] = 255;
+                        */
                         
     
                     }
@@ -242,9 +244,6 @@ function ImStream(){
                 }
             }
 
-
-
-            
             else if (Finger >= 420){
                 RedAv = RedAv.slice(120,420);
                 Feedback.innerHTML = "Done";
@@ -254,21 +253,12 @@ function ImStream(){
                 window.dispatchEvent(doneEvent);
                 Fin = 1;
             }
+            
         }
 
             
             
 };
-
-
-// Start the service Worker when the window loads
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-     navigator.serviceWorker.register( 'service-worker.js').then( () => {
-      console.log('Service Worker Registered')
-     })
-   })
-}
 
 window.addEventListener("load", cameraStart, false);
 
@@ -341,21 +331,23 @@ function dataProcess() {
     	var HeartRate = 1800 * RR.length / total;
     	HR.innerHTML = String(HeartRate).concat(' bpm');
 
-        // Export collected data
+        // Export full waveform
         var export_RR = "data:text/csv;charset=utf-8,";
-        locs.forEach(function(peak_location){
-            export_RR += peak_location + "\r\n";
-        })
-
+        RedAvFilt.splice(0, FPS*2);
+        var red_timing = [];
+        for (i = 0; i < RedAvFilt.length; i++){
+            red_timing.push(i / FPS);
+        }
+        export_RR += RedAvFilt + "\r\n" + red_timing;
         var link = document.createElement("a");
         link.setAttribute("href", encodeURI(export_RR));
-        link.setAttribute("download", "RR_timestamps.csv");
+        link.setAttribute("download", "red_waveform.csv");
         document.body.appendChild(link); // Required for FF
         link.click(); // This will download the csv file
 
         // Cache downloaded file
         caches.open('AFib-Detection-App-').then(function(current_cache){
             console.log('Opened cache for data export');
-            current_cache.add('/RR_timestamps.csv');
+            current_cache.add('/red_waveform.csv');
         })
 }

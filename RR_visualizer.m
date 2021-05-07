@@ -2,14 +2,12 @@
 %%
 close all; clear all;
 % load RR timestamps
-RR_timestamps=csvread("RR_timestamps_2.csv");
-peak_marker=zeros(size(RR_timestamps));
 FPS = 30;
-
+red_waveform=csvread("red_waveform.csv");
 
 figure(1);
-scatter(RR_timestamps/FPS, peak_marker, 'LineWidth', 2);
+plot(red_waveform(2, :), red_waveform(1, :), 'r');
 title("Timestamps of measured R waves");
-xlabel("Peak timing (s)");
-ylabel("Peak event");
+xlabel("Time(s)");
+ylabel("Red Average(~mV)");
 grid on;
