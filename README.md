@@ -1,3 +1,3 @@
-# AFib-Detection-App
-Web-based app for detection of Atrial Fibrillation through finger pulse signal
+# Atrial Fibrillation Screening App
+Web-app that screens for Atrial Fibrillation by collecting and analyzing pulse data from finger
  
