@@ -1,0 +1,221 @@
+html, body {
+    overflow: hidden;
+    position: fixed;
+    touch-action: none;
+    object-fit: cover;
+    
+}
+body {
+    position: fixed;
+    margin: 0 0 0 0;
+    box-sizing: border-box;
+}
+#video-space {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+    display: block;
+    box-sizing: border-box;
+    object-fit: cover;
+    z-index: -1;
+    
+
+}
+
+#main-space {
+    position: fixed;
+    padding: 0;
+    height: calc(100% - 80px);;
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgba(213, 236, 199,1), rgba(243, 255, 240,1),rgba(255, 255, 255, 1));
+    display: block;
+    box-sizing: border-box;
+    object-fit: cover;
+    z-index: 1;
+}
+#app-space {
+    padding: 5px 5px 5px 5px;
+    position: fixed;
+    height: calc(100% - 80px);;
+    width: 100%;
+    /* background-image: linear-gradient(to bottom, rgba(213, 236, 199,0.6), rgba(243, 255, 240,0.25),rgba(255, 255, 255, 0)); */
+    display: block;
+    box-sizing: border-box;
+    object-fit: cover;
+    z-index: 0;
+    
+}
+
+
+#tool-bar {
+    position: fixed;
+    padding: 5px;
+    height: 80px;
+    width: 100%;
+    bottom: 0;
+    background-color: rgb(121, 121, 121);
+    display: block;
+    box-sizing: border-box;
+    object-fit: cover;
+}
+
+#download-button{
+    position: fixed;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    background-color: rgb(229, 240, 229);
+    height: 60px;
+    width: 60px;
+    left: 7.5%;
+}
+
+#switch-button {
+    position: fixed;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    background-color: rgb(229, 240, 229);
+    height: 60px;
+    width: 60px;
+    left: 30%;
+    
+}
+
+#help-button {
+    position: fixed;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    background-color: rgb(238, 228, 237);
+    height: 60px;
+    width: 60px;
+    left: 52.5%;
+    
+}
+
+#data-button {
+    position: fixed;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    background-color: rgb(228, 232, 238);
+    height: 60px;
+    width: 60px;
+    left: 75%;
+    
+}
+
+#restart-button {
+    position: fixed;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    background-color: rgb(196, 255, 168);
+    height: 120px;
+    width: 120px;
+    right: 25px;
+    bottom: 100px;
+    pointer-events: none;
+    opacity: 0;
+    
+}
+#restart-icon{
+    font-size: 100px;
+}
+
+#home-button {
+    position: fixed;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    background-color: rgb(229, 240, 229);
+    height: 60px;
+    width: 60px;
+    left: calc(50vw - 30px);
+    
+}
+#home-icon{
+    font-size: 30px;
+}
+
+#camera-icon, #help-icon, #data-icon, #download-icon{
+    font-size: 30px;
+}
+
+
+#feedback-space{
+    pointer-events: none;
+    position: fixed;
+    box-sizing: border-box;
+    height: 150px;
+    width: 150px;
+    right: 5px;
+    bottom: 90px;
+
+}
+
+#finger-animation{
+    position: fixed;
+    box-sizing: border-box;
+    opacity: 1;
+    height: 160px;
+    width: 160px;
+    right: 165px;
+    bottom: 80px;
+
+}
+
+#camera-view{
+    pointer-events: none;
+    position: fixed;
+    object-fit: cover;
+    height: 150px;
+    width: 150px;
+    z-index: 2;
+}
+
+
+#header-bar {
+    position: fixed;
+    padding: 5px;
+    height: 65px;
+    width: 100%;
+    top: 0;
+    background-color: rgb(205, 235, 187);
+    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    display: block;
+    box-sizing: border-box;
+    object-fit: cover;
+}
+
+#data-space{
+    margin: 0px;
+    padding: 5px 5px 5px 5px;
+    width:150px;
+    height: 52.5px;
+    top:2.5px;
+    right:2.5px;      
+    position: fixed;
+    display: block;
+    object-fit: cover;
+    z-index: 3;  
+
+}
+
+#pre-loader {
+    position: fixed;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, rgba(213, 236, 199,1), rgba(243, 255, 240,1),rgba(255, 255, 255, 1));
+    display: block;
+    box-sizing: border-box;
+    object-fit: cover;
+    z-index: 7;
+}
+
+#afid-logoLoad{
+    position: fixed;
+    right:calc(50vw - 100px);
+    top:60px;
+    width: 200px;
+    z-index: 8;
+
+}

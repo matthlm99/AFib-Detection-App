@@ -1,0 +1,16 @@
+{
+  "background_color": "linear-gradient(to bottom, rgba(213, 236, 199,1), rgba(243, 255, 240,1),rgba(255, 255, 255, 1))",
+  "description": "Tracks Pulse to Look for AF",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "AFiD_Logo_Square.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ],
+
+  "name": "Atrial Fibrillation Detection App",
+  "short_name": "AFiD",
+  "start_url": "index.html"
+}

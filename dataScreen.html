@@ -1,0 +1,96 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>Mobile Test</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+ 
+
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="graphics.css">
+    <link rel="stylesheet" href="plot.css">
+    
+    
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    
+</head>
+
+<body noscroll>
+ 
+
+
+
+    
+
+    <!--Main App Space-->
+    <div id = "main-space">
+    
+        
+
+        <div id = "plot-space">
+            <canvas id="data-plot"></canvas>
+
+
+            
+        </div>
+        <!-- <p>Data Collection Log</p>
+
+        <ol id = "hr-data">
+                
+                
+        </ol> -->
+        
+
+        <div id="header-bar">
+            <object id="afid-logo" data="AFiD_Logo.png" type="image/png"></object>
+           
+           <div id="data-space">
+
+                <!-- <span id="heart-icon" class="material-icons">favorite</span> -->
+                <!-- Heart Rate -->
+                <div id="HR">
+                     
+                </div>
+            </div>
+           
+
+        </div>
+    
+    </div>
+
+
+    
+        
+
+    <div id = "tool-bar">
+
+        <button id = "home-button" onclick="window.location.href='index.html'">
+            <span id = "home-icon" class="material-icons">
+                home
+            </span>
+        </button>
+            
+
+    </div>
+
+    <script>
+        window.addEventListener('load', function(){
+        const hrData = document.querySelector("#hr-data")
+        var collectionNumber = parseInt(window.localStorage.getItem("Collection"));
+
+        });
+
+
+    </script>
+    <script src = "plot.js" ></script>
+
+
+</body>
+</html>

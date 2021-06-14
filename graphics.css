@@ -1,0 +1,222 @@
+#indicator{
+    position: absolute;
+    padding: 5px 5px 5px 5px;
+    height: 90px;
+    width: 100%;
+    bottom: 0px;
+    display: block;
+    box-sizing: border-box;
+    z-index: 3;
+}
+#loader{
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    height: 150px;
+    width: 150px;       
+    color: rgba(85, 144, 255,0.4);
+    /* color: rgb(150, 150, 150); */
+    position: fixed;  
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+#loaderIcon,#checkingIcon{
+    position: absolute; 
+    font-size: 150px;  
+}
+#doneIcon{
+    position: absolute; 
+    font-size: 150px;  
+    color: rgb(85, 144, 255);
+    opacity: 0;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(14, 23, 41);
+    z-index: 3;
+}
+
+#feedback{
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    height: 145px;
+    line-height: 145px;
+    width: 145px;  
+    right: 5px;      
+    border: 5px solid rgba(70, 70, 70, 1);
+    color: rgb(85, 144, 255);
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(14, 23, 41);
+    font-family: Arial, sans-serif;
+    font-size: 60px;
+    font-weight: 800;
+    text-align: center;
+    position: fixed;  
+    z-index: 4;
+}
+#feedback-color{
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    height: 145px;
+    line-height: 145px;
+    width: 145px;  
+    right: 5px;      
+    /* background-color: rgba(255, 148, 180, 0.2); */
+    border: 5px solid rgba(70, 70, 70, 1);
+    color: rgb(85, 144, 255);
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(14, 23, 41);
+    font-family: Arial, sans-serif;
+    font-size: 80px;
+    font-weight: 800;
+    text-align: center;
+    position: fixed;  
+    z-index: 2;
+}
+
+#HR{
+    margin: 0px;
+    padding: 2px 2px 2px 2px;
+    width:100px;
+    height: 50px;
+    top:2.5px;
+    right: 0px;
+    /* line-height: 80px; */     
+    color: rgb(218, 183, 214);
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: black;
+    font-family: Arial, sans-serif;
+    font-size: 22.5px;
+    font-weight: 800;
+    position: absolute;
+    text-align: left;
+    z-index: 3;  
+}
+#heart-icon{
+    position: absolute;
+    color: rgb(218, 183, 214);
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: black;
+    right: 105px;
+
+}
+#rhythm-icon{
+    position: absolute;
+    color: rgb(85, 144, 255);
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: black;
+    right: 105px;
+    top: 35px;
+
+}
+
+#rhythm{
+    margin: 0px;
+    padding: 2px 2px 2px 2px;
+    width:100px;
+    height: 50px;
+    top:32px;
+    right: 0px;
+    /* line-height: 80px; */     
+    color: rgb(85, 144, 255);
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: black;
+    font-family: Arial, sans-serif;
+    font-size: 22.5px;
+    font-weight: 800;
+    position: absolute;
+    text-align: left;
+    z-index: 3;  
+}
+
+#wave{
+    position: absolute;
+    top: 67.5px;
+    left:0;
+    box-sizing: border-box;
+    object-fit: cover;
+    z-index: 3;
+}
+
+#afid-logo{
+    width: 155px;;
+
+}
+
+#finger-icon{
+    position: absolute; 
+    font-size: 80px;  
+    right: 40px;
+    color: rgb(70, 70, 70);
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(70, 70, 70);
+    z-index: 5;
+
+    animation-name: finger;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+}
+
+#phone-icon{
+    position: absolute; 
+    font-size: 150px;  
+    color: rgb(120, 120, 120);
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(70, 70, 70);
+    z-index: 2;
+}
+
+#camera-circle{
+    position: absolute; 
+    left:65px;
+    top:10px;
+    background: rgb(205, 235, 187);
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    z-index: 4;
+
+}
+
+#loaderIcon{
+    opacity: 0;
+    -webkit-text-stroke-color: rgb(14, 23, 41);
+    animation-name: load;
+    animation-duration: 2.3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+#checkingIcon{
+    opacity: 0;
+    -webkit-text-stroke-color: rgb(14, 23, 41);
+    animation-name: check;
+    animation-duration: 2.3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+
+
+
+@keyframes load {
+    0%   {transform: rotate(0deg);}
+    50%  {transform: rotate(180deg);}
+    100% {transform: rotate(360deg);}
+    
+}
+
+@keyframes check {
+    0%   {transform: rotate(0deg);}
+    50%  {transform: rotate(180deg);}
+    100% {transform: rotate(360deg);}
+    
+}
+
+@keyframes finger {
+    0%   {transform: translate(-7px, -7px);}
+    50%  {transform: translate(15px, 11px);}
+    100% {transform: translate(30px, 30px);}
+    
+}
+
