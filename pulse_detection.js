@@ -81,8 +81,7 @@ const cameraView = document.querySelector("#camera-view"),
   preLoad = document.querySelector("#pre-loader")
 
 //
-
-downloadButton.setAttribute("disabled", ""); // disable download pre-collection
+downloadButton.disabled = true; // disable download button pre-collection
 
 
 // Access the device camera and stream to cameraView
@@ -205,6 +204,11 @@ function ImStream(){
 
   var canvasColor = context.getImageData(0, 0, w, h);
   var pixels = canvasColor.data;
+  var rcent = pixels[(4*center)];
+  var rgCent = pixels[(4*center)]/pixels[(4*center)+1];
+  var rbCent = pixels[(4*center)]/pixels[(4*center)+2];
+
+
 
   var redCornMax = Math.max(pixels[(4*UL)],pixels[(4*UR)],pixels[(4*BL)],pixels[(4*BR)]);
   var greenCornMax = Math.max(pixels[(4*UL)+1],pixels[(4*UR)+1],pixels[(4*BL)+1],pixels[(4*BR)+1]);
@@ -216,55 +220,25 @@ function ImStream(){
   var Red = 0;
   var Green = 0;
 
-  var frame_length = pixels.length/4;
-
-  var innerRed = 0;
-  var outerRed = 0;
-  var innerGreen = 0;
-  var outerGreen = 0;
-  // Red averaging scheme
+  
   for (i = 0; i < pixels.length-1; i = i + 4){
-    frame_index = Math.floor(i/4);
     Red = Red + pixels[i];
     Green = Green + pixels[i+1];
-    if (frame_index > frame_length*(1/4) && frame_index < frame_length*(3/4)){
-      innerRed += pixels[i];
-      innerGreen += pixels[i+1];
-    } else{
-      outerRed += pixels[i];
-      outerGreen += pixels[i+1];
-    }
   }
-  // Finger detection metrics
-  /*
-  for (frame_index = 0; frame_index < frame_length; frame_index++){
-    if (frame_index > frame_length*(1/4) && frame_index < frame_length*(3/4)){
-      innerRed.push(Red.slice(frame_index, frame_index + 1));
-      innerGreen.push(Green.slice(frame_index, frame_index + 1));
-    } else if (frame_index < frame_length*(1/4) && frame_index > frame_length*(3/4)){
-      outerRed.push(Red.slice(frame_index, frame_index + 1));
-      outerGreen.push(Green.slice(frame_index, frame_index + 1));
-    }
-  }*/
-  Red = -(Red/frame_length);
-  Green = -(Green/frame_length);
-  innerRed = -(innerRed/frame_length);
-  innerGreen = -(innerGreen/frame_length);
-  outerRed = -(outerRed/frame_length);
-  outerGreen = -(outerGreen/frame_length);
+  Red = -(Red/(pixels.length/4));
+  Green = -(Green/(pixels.length/4));
 
-  var rgCent = Red/Green;
-  var innerRG = innerRed / innerGreen;
-  var outerRG = outerRed / outerGreen;
-  var inner_outer_red = innerRed / outerRed;
+  rgCent = Red/Green;
+  
   // Processing
   if (Fin == 0){
+    
 
 
     //Detect Finger
 
     // No Finger
-    if (rgCent < 1.1){
+    if (rgCent < 1.8){
       FeedbackColor.style.backgroundColor = 'rgba(255, 148, 180, 0)';
       loaderIcon.style.opacity = "0";
       checkingIcon.style.opacity = "0";
@@ -279,11 +253,11 @@ function ImStream(){
     }
           
     // Yes Finger
-    if (innerRG > 5.4){
-      console.log(innerRG);
+    if (rgCent > 1.1){
+      
         
 
-      if (Finger < FPS*1 && innerRG > 6.0){
+      if (Finger < FPS*1 && rgCent > 1.8){
         FeedbackColor.style.backgroundColor = 'rgba(213, 236, 199,1)';
         Feedback.innerHTML = "";
         Finger = Finger + 1;  
@@ -292,18 +266,18 @@ function ImStream(){
         
         
       }
-      else if (Finger >= FPS*1 && Finger < FPS*2 && innerRG > 6.4){
+      else if (Finger >= FPS*1 && Finger < FPS*2 && rgCent > 1.6){
         FeedbackColor.style.backgroundColor = 'rgba(213, 236, 199,1)';
         Feedback.innerHTML = "";
         Finger = Finger + 1;  
         checkingIcon.style.opacity = "1";
       }
-      else if (Finger >= FPS*2 && Finger < FPS*3 && innerRG > 6.2){
+      else if (Finger >= FPS*2 && Finger < FPS*3 && rgCent > 1.4){
         FeedbackColor.style.backgroundColor = 'rgba(213, 236, 199,1)';
         Feedback.innerHTML = "";
         Finger = Finger + 1;  
       }
-      else if (Finger >= FPS*3 && innerRG > 6.0){
+      else if (Finger >= FPS*3 && rgCent > 1.1){
         FeedbackColor.style.backgroundColor = 'rgba(213, 236, 199,1)';
         Feedback.innerHTML = "";
         Finger = Finger + 1;  
@@ -334,19 +308,17 @@ function ImStream(){
         }
         var avg = sum / (finish - start + 1);
         threshold.push(avg);
-        if (RedAvFilt[n - 5/6 * FPS + 1] < RedAvFilt[n - 5/6 * FPS]){
-          if (n - 5/6 * FPS > locs[locs.length - 1] + FPS/2){
-            if (RedAvFilt[n - 5/6 * FPS + 2] < RedAvFilt[n - 5/6 * FPS]){
-              if (RedAvFilt[n - 5/6 * FPS + 3] < RedAvFilt[n - 5/6 * FPS]){
-                if (RedAvFilt[n - 5/6 * FPS] > threshold[n - 5/6 * FPS]){
-                  locs.push(n - 5/6 * FPS);
-                }
-              }
-            }
-          }
-        }
+	if (RedAvFilt[n - 5/6 * FPS + 1] < RedAvFilt[n - 5/6 * FPS]){
+		if (RedAvFilt[n - 5/6 * FPS] > threshold[n - 5/6 * FPS]){
+			if (n - 5/6 * FPS > locs[locs.length - 1] + FPS/2){			
+				locs.push(n - 5/6 * FPS);
+			}
+			else if (n - 5/6 * FPS < locs[locs.length - 1] + FPS/3 && RedAvFilt[n - 5/6 * FPS] > RedAvFilt[locs[locs.length - 1]]){
+				locs[locs.length - 1] = n - 5/6 * FPS;
+			}
+		}
+	}
       }
-
     }
     
     if (Finger >= Math.round((5)*FPS) && Finger<Math.round((37))*FPS){
@@ -555,8 +527,8 @@ window.addEventListener("doneEvent",dataProcess, false);
 
 
 function dataProcess() {
-  locs.shift();
-	locs.shift();
+
+  locs.splice(0,4);
   var RR = [locs[1]-locs[0]];
   for (j = 2; j < locs.length; j++){
       RR.push(locs[j]-locs[j-1]);
@@ -565,11 +537,11 @@ function dataProcess() {
   for (k = 0; k < RR.length; k++){
       total += RR[k];
   }
-  var HeartRate = Math.round(1800 * RR.length / total);
+  var HeartRate = Math.round(60 * FPS * RR.length / total);
 
   pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 	for (i = 0; i < locs.length; i++){
-		pulse_t[i] = locs[i] * 100 / 3;
+		pulse_t[i] = locs[i] * 1000 / FPS;
 	}
 	pulse_n = locs.length; // pulse_n is the number of pulse arrival times in the array.
 	
@@ -665,7 +637,7 @@ function dataProcess() {
 
 
 			rrs = rrs.sort(); // This replaces the bubble sort below
-      console.log(rrs);
+
 
  
 
@@ -681,16 +653,16 @@ function dataProcess() {
 		}
 
     
-    console.log(outData);
+
 		outData = outData.sort();
-    console.log(outData);
+
 		return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
 	}
 	AF = AFD(pulse_t,pulse_n);
 
 
   //Displays whether the rhythm is AF or NSR
-  if (AF<=0){
+  if (AF <=0 ){
     rhythm.innerHTML = "NSR";
   }
   else if (AF > 0){
@@ -699,7 +671,7 @@ function dataProcess() {
   }
 
   // Display Heart Rate
-  HR.innerHTML = String(Math.round(HeartRate)).concat(' bpm');
+  HR.innerHTML = String(HeartRate).concat(' bpm');
   
 
   // Saves data to local stroage for the data screen
@@ -724,7 +696,6 @@ function dataProcess() {
 
   window.localStorage.setItem(String(collectionNumber), String(dateTime));
   window.localStorage.setItem("Collection", String(collectionNumber));
-
 
   downloadButton.disabled = false; // enable download button
 
